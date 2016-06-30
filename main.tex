@@ -594,6 +594,128 @@ wir $ \neg \texttt{Elefant\_rot} $ (I) an. Dann leiten wir damit neue Sätze ab:
     \item Aus Kombination von M und D folgt: $ \texttt{Antilope\_rot} \lor \texttt{Hyäne\_rot} $ (N)
 \end{itemize}
 
+Wie geht's weiter???
+
+% - Problemart
+\section{Problemart}
+\label{sec:problemart}
+
+Logikpuzzle???
+
+% Aufgabe
+\chapter{Aufgabe}
+\label{chp:aufgabe}
+
+% - Einzeichnen von Vorbedingungen und Effekten
+\section{Einzeichnen von Vorbedingungen und Effekten}
+\label{sec:einzeichnen_von_vorbedingungen_und_effekten}
+
+\begin{center}
+\vspace{0.4cm}
+\begin{tikzpicture}[auto, thick, node distance=4cm, >=triangle 45]
+\draw
+    node at (0, -8) [block] (start) {Start}
+    node at (8, 0) [block] (bluver) {Blumen versorgen}
+    node at (8, -8) [block] (saugen) {Saugen}
+    node at (8, -16) [block] (kuba) {Kuchen backen}
+    node at (16, -8) [block] (ende) {Ende};
+    \draw (2.5,-7.5) -- node {Ruhe} (start.east |- 2.5,-7.5);
+    \draw (2.5,-8.5) -- node {H\_clean} (start.east |- 2.5,-8.5);
+    \draw (13.5,-7.5) -- node {Kuchen} (ende.west |- 13.5,-7.5);
+    \draw (13.5,-8) -- node {Blumen} (ende.west |- 13.5,-8);
+    \draw (13.5,-8.5) -- node {Sauber} (ende.west |- 13.5,-8.5);
+    \draw (4.5, 0) -- node {Ruhe} (bluver.west);
+    \draw (bluver.east) -- node {Blumen} (11.5,0);
+    \draw (saugen.east) -- node {Sauber} (10.5,-7.5);
+    \draw (saugen.east) -- node {$\neg$Ruhe} (10.5,-8.5);
+    \draw (4.5, -16) -- node {H\_clean} (kuba.west);
+    \draw (kuba.east) -- node {Kuchen} (11.5,-16);
+\end{tikzpicture}
+\end{center}
+
+% - Causal Links
+\section{Causal Links}
+\label{sec:causal_links}
+
+\begin{center}
+\vspace{0.4cm}
+\begin{tikzpicture}[auto, thick, node distance=4cm, >=triangle 45]
+\draw
+    node at (0, -8) [block] (start) {Start}
+    node at (8, 0) [block] (bluver) {Blumen versorgen}
+    node at (8, -8) [block] (saugen) {Saugen}
+    node at (8, -16) [block] (kuba) {Kuchen backen}
+    node at (16, -8) [block] (ende) {Ende};
+    \draw (2.5,-7.5) -- node {Ruhe} (start.east |- 2.5,-7.5);
+    \draw (2.5,-8.5) -- node {H\_clean} (start.east |- 2.5,-8.5);
+    \draw (13.5,-7.5) -- node {Kuchen} (ende.west |- 13.5,-7.5);
+    \draw (13.5,-8) -- node {Blumen} (ende.west |- 13.5,-8);
+    \draw (13.5,-8.5) -- node {Sauber} (ende.west |- 13.5,-8.5);
+    \draw (4.5, 0) -- node {Ruhe} (bluver.west);
+    \draw (bluver.east) -- node {Blumen} (11.5,0);
+    \draw (10.5,-7.5) -- node {Sauber} (saugen.east |- 10.5,-7.5);
+    \draw (10.5,-8.5) -- node {$\neg$Ruhe} (saugen.east |- 10.5,-8.5);
+    \draw (4.5, -16) -- node {H\_clean} (kuba.west);
+    \draw (kuba.east) -- node {Kuchen} (11.5,-16);
+    \draw[blue] (2.5,-7.5) .. controls (4,-7.5) and (3, 0) .. (4.5, 0);
+    \draw[blue] (2.5,-8.5) .. controls (4,-8.5) and (3, -16) .. (4.5, -16);
+    \draw[blue] (10.5,-7.5) .. controls (12.5,-7.5) and (11.5, -8.5) .. (13.5,-8.5);
+    \draw[blue] (11.5,0) .. controls (13.5,0) and (11.5, -8) .. (13.5,-8);
+    \draw[blue] (11.5,-16) .. controls (13.5,-16) and (11.5, -7.5) .. (13.5,-7.5);
+\end{tikzpicture}
+\end{center}
+
+% - Threads
+\section{Threads}
+\label{sec:threads}
+
+\begin{center}
+\vspace{0.4cm}
+\begin{tikzpicture}[auto, thick, node distance=4cm, >=triangle 45]
+\draw
+    node at (0, -8) [block] (start) {Start}
+    node at (8, 0) [block] (bluver) {Blumen versorgen}
+    node at (8, -8) [block] (saugen) {Saugen}
+    node at (8, -16) [block] (kuba) {Kuchen backen}
+    node at (16, -8) [block] (ende) {Ende};
+    \draw (2.5,-7.5) -- node {Ruhe} (start.east |- 2.5,-7.5);
+    \draw (2.5,-8.5) -- node {H\_clean} (start.east |- 2.5,-8.5);
+    \draw (13.5,-7.5) -- node {Kuchen} (ende.west |- 13.5,-7.5);
+    \draw (13.5,-8) -- node {Blumen} (ende.west |- 13.5,-8);
+    \draw (13.5,-8.5) -- node {Sauber} (ende.west |- 13.5,-8.5);
+    \draw (4.5, 0) -- node {Ruhe} (bluver.west);
+    \draw (bluver.east) -- node {Blumen} (11.5,0);
+    \draw (10.5,-7.5) -- node {Sauber} (saugen.east |- 10.5,-7.5);
+    \draw (10.5,-8.5) -- node {$\neg$Ruhe} (saugen.east |- 10.5,-8.5);
+    \draw (4.5, -16) -- node {H\_clean} (kuba.west);
+    \draw (kuba.east) -- node {Kuchen} (11.5,-16);
+    \draw[blue] (2.5,-7.5) .. controls (4,-7.5) and (3, 0) .. (4.5, 0);
+    \draw[blue] (2.5,-8.5) .. controls (4,-8.5) and (3, -16) .. (4.5, -16);
+    \draw[blue] (10.5,-7.5) .. controls (12.5,-7.5) and (11.5, -8.5) .. (13.5,-8.5);
+    \draw[blue] (11.5,0) .. controls (13.5,0) and (11.5, -8) .. (13.5,-8);
+    \draw[blue] (11.5,-16) .. controls (13.5,-16) and (11.5, -7.5) .. (13.5,-7.5);
+    \draw[red] (10.5,-8.5) .. controls (10.5,-4) and (4.5, -4) .. (4.5,0);
+\end{tikzpicture}
+\end{center}
+
+% - Ordnungsrelationen
+\section{Ordnungsrelationen}
+\label{sec:ordnungsrelationen}
+
+\begin{itemize}
+    \item Blumen versorgen $ \, < \, $ Saugen
+\end{itemize}
+
+% - Linearisierungen
+\section{Linearisierungen}
+\label{sec:linearisierungen}
+
+\begin{itemize}
+    \item Blumen versorgen $\rightarrow$ Saugen $\rightarrow$ Kuchen backen
+    \item Kuchen Backen $\rightarrow$ Blumen versorgen $\rightarrow$ Saugen
+    \item Blumen versorgen $\rightarrow$ Kuchen Backen $\rightarrow$ Saugen
+\end{itemize}
+
 % End of Text
 
 \cleardoublepage{}
