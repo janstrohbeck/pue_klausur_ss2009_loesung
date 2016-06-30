@@ -626,8 +626,8 @@ Logikpuzzle???
     \draw (13.5,-8.5) -- node {Sauber} (ende.west |- 13.5,-8.5);
     \draw (4.5, 0) -- node {Ruhe} (bluver.west);
     \draw (bluver.east) -- node {Blumen} (11.5,0);
-    \draw (saugen.east) -- node {Sauber} (10.5,-7.5);
-    \draw (saugen.east) -- node {$\neg$Ruhe} (10.5,-8.5);
+    \draw (10.5,-7.5) -- node {Sauber} (saugen.east |- 10.5,-7.5);
+    \draw (10.5,-8.5) -- node {$\neg$Ruhe} (saugen.east |- 10.5,-8.5);
     \draw (4.5, -16) -- node {H\_clean} (kuba.west);
     \draw (kuba.east) -- node {Kuchen} (11.5,-16);
 \end{tikzpicture}
