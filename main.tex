@@ -33,7 +33,7 @@
 
 % Aufgabe
 \chapter{Aufgabe}
-\label{chp:aufgabe_1}
+\label{chp:aufgabe1}
 
 % - Erreicht der Agent immer sein Ziel?
 \section{Erreicht der Agent immer sein Ziel?}
@@ -187,7 +187,7 @@ Ziel zu kommen.
 
 % Aufgabe
 \chapter{Aufgabe}
-\label{chp:aufgabe}
+\label{chp:aufgabe2}
 
 % - Zulässigkeit
 \section{Zulässigkeit}
@@ -257,7 +257,342 @@ Ziel zu kommen.
         nicht erfüllt.
 \end{itemize}
 
+% Aufgabe
+\chapter{Aufgabe}
+\label{chp:aufgabe3}
 
+% - Variablen, Wertebereiche
+\section{Variablen, Wertebereiche}
+\label{sec:variablen_wertebereiche}
+
+\begin{itemize}
+    \item Variablen:
+        \begin{itemize}
+            \item $ \text{Feld}_{i,j} $ $\rightarrow$ Zahl im Feld in Zeile $ i
+                $ und Spalte $ j $
+            \item $ i, j \in \left\{ 0, 1, 2, 3 \right\} $
+            \item $ \text{Feld}_{0,0} $ befindet sich in der oberen linken Ecke.
+        \end{itemize}
+    \item (Basis-)Wertebereiche:
+        \begin{itemize}
+            \item $ \text{Feld}_{i,j} \in \left\{ 1, 2, 3, 4 \right\}, \quad i, j \in \left\{ 0, 1, 2, 3 \right\} $
+        \end{itemize}
+    \item Constraints (nicht verlangt):
+        \begin{itemize}
+            \item $ \text{alldiff}(\text{Feld}_{0,j}, \text{Feld}_{1,j}, \text{Feld}_{2,j}, \text{Feld}_{3,j}), \quad j \in \left\{ 0, 1, 2, 3 \right\} $
+            \item $ \text{alldiff}(\text{Feld}_{i,0}, \text{Feld}_{i,1}, \text{Feld}_{i,2}, \text{Feld}_{i,3}), \quad j \in \left\{ 0, 1, 2, 3 \right\} $
+            \item $ \text{alldiff}(\text{Feld}_{m,n}, \text{Feld}_{m,n+1}, \text{Feld}_{m+1,n}, \text{Feld}_{m+1,n+1}), \quad m, n \in \left\{ 0, 2\right\} $
+        \end{itemize}
+\end{itemize}
+
+% - aktuelle Wertebereiche der Variablen
+\section{aktuelle Wertebereiche der Variablen}
+\label{sec:aktuelle_wertebereiche_der_variablen}
+
+\begin{itemize}
+    \item $ \text{Feld}_{0,0} \in \left\{ 2, 3 \right\} $
+    \item $ \text{Feld}_{0,1} \in \left\{ 2, 3 \right\} $
+    \item $ \text{Feld}_{0,2} \in \left\{ 1, 4 \right\} $
+    \item $ \text{Feld}_{0,3} \in \left\{ 3 \right\} $ (bereits zugewiesen)
+    \item $ \text{Feld}_{1,0} \in \left\{ 2, 3, 4 \right\} $
+    \item $ \text{Feld}_{1,1} \in \left\{ 1 \right\} $ (bereits zugewiesen)
+    \item $ \text{Feld}_{1,2} \in \left\{ 4 \right\} $
+    \item $ \text{Feld}_{1,3} \in \left\{ 2 \right\} $
+    \item $ \text{Feld}_{2,0} \in \left\{ 1, 3 \right\} $
+    \item $ \text{Feld}_{2,1} \in \left\{ 3 \right\} $
+    \item $ \text{Feld}_{2,2} \in \left\{ 2 \right\} $ (bereits zugewiesen)
+    \item $ \text{Feld}_{2,3} \in \left\{ 4 \right\} $ (bereits zugewiesen)
+    \item $ \text{Feld}_{3,0} \in \left\{ 1, 2, 3, 4 \right\} $
+    \item $ \text{Feld}_{3,1} \in \left\{ 2, 3, 4 \right\} $
+    \item $ \text{Feld}_{3,2} \in \left\{ 1, 3 \right\} $
+    \item $ \text{Feld}_{3,3} \in \left\{ 1 \right\} $
+\end{itemize}
+
+% - Lösen des Sudokus
+\section{Lösen des Sudokus}
+\label{sec:loesen_des_sudokus}
+
+$\rightarrow$ Anwenden der Minimum-Remaining-Values-Heuristik (MRV):
+
+1.\ Iteration:
+
+\begin{itemize}
+    \item Wählen der noch nicht zugewiesenen Variable mit dem kleinsten
+        Wertebereich, z.B.\ $ \text{Feld}_{3,3} \in \left\{ 1 \right\} $.
+    \item Probieren des ersten Wertes (hier der einzige Wert): $
+        \text{Feld}_{3,3} = 1 $
+    \item Forward-Checking ändert Wertebereiche:
+        \begin{itemize}
+            \item $ \text{Feld}_{3,2} \in \left\{ 3 \right\} $
+            \item $ \text{Feld}_{3,0} \in \left\{ 2, 3, 4 \right\} $
+        \end{itemize}
+\end{itemize}
+
+2.\ Iteration:
+
+\begin{itemize}
+    \item Wählen der noch nicht zugewiesenen Variable mit dem kleinsten
+        Wertebereich, z.B.\ $ \text{Feld}_{3,2} \in \left\{ 3 \right\} $.
+    \item Probieren des ersten Wertes (hier der einzige Wert): $
+        \text{Feld}_{3,2} = 3 $
+    \item Forward-Checking ändert Wertebereiche:
+        \begin{itemize}
+            \item $ \text{Feld}_{3,0} \in \left\{ 2, 4 \right\} $
+            \item $ \text{Feld}_{3,1} \in \left\{ 2, 4 \right\} $
+        \end{itemize}
+\end{itemize}
+
+3.\ Iteration:
+
+\begin{itemize}
+    \item Wählen der noch nicht zugewiesenen Variable mit dem kleinsten
+        Wertebereich, z.B.\ $ \text{Feld}_{1,2} \in \left\{ 4 \right\} $.
+    \item Probieren des ersten Wertes (hier der einzige Wert): $
+        \text{Feld}_{1,2} = 4 $
+    \item Forward-Checking ändert Wertebereiche:
+        \begin{itemize}
+            \item $ \text{Feld}_{0,2} \in \left\{ 1 \right\} $
+            \item $ \text{Feld}_{1,0} \in \left\{ 2, 3 \right\} $
+        \end{itemize}
+\end{itemize}
+
+4.\ Iteration:
+
+\begin{itemize}
+    \item Wählen der noch nicht zugewiesenen Variable mit dem kleinsten
+        Wertebereich, z.B.\ $ \text{Feld}_{0,2} \in \left\{ 1 \right\} $
+    \item Probieren des ersten Wertes (hier der einzige Wert): $
+        \text{Feld}_{0,2} = 1 $
+\end{itemize}
+
+% Aufgabe
+\chapter{Aufgabe}
+\label{chp:aufgabe4}
+
+% - Beschreibung des Problems
+\section{Beschreibung des Problems}
+\label{sec:beschreibung_des_problems}
+
+$\rightarrow$ atomare Sätze sind entweder
+\begin{itemize}
+    \item z.B.\ \verb+Antilope_rot+ ist wahr, wenn die Antilope die rote Karte gezogen hat und
+        \verb+Antilope_blau+ ist wahr, wenn die Antilope die blaue Karte gezogen
+        hat oder
+    \item leichter zu vereinfachen:
+        
+        Es existiert nur z.B.\ \verb+Antilope_rot+,
+        denn \verb+Antilope_blau+ = $ \neg $\verb+Antilope_rot+
+\end{itemize}
+
+% - Sätze für Giraffe und Elefant
+\section{Sätze für Giraffe und Elefant}
+\label{sec:saetze_fuer_giraffe_und_elefant}
+
+\begin{itemize}
+    \item Antilope sagt: Papagei rot, Hyäne blau
+        \begin{align*}
+            (\texttt{Antilope\_rot} \Rightarrow (
+                (\texttt{Papagei\_rot} \land \texttt{Hyäne\_blau}) \lor
+                (\neg \texttt{Papagei\_rot} \land \neg \texttt{Hyäne\_blau})
+                )
+            ) \land \\
+            (\texttt{Antilope\_blau} \Rightarrow (
+                (\neg \texttt{Papagei\_rot} \land \texttt{Hyäne\_blau}) \lor
+                (\texttt{Papagei\_rot} \land \neg \texttt{Hyäne\_blau})
+                )
+            )
+        \end{align*}
+        Mit $ \texttt{*\_blau} \Leftrightarrow \neg \texttt{*\_rot} $:
+        \begin{align*}
+            (\texttt{Antilope\_rot} \Rightarrow (
+                (\texttt{Papagei\_rot} \land \neg \texttt{Hyäne\_rot}) \lor
+                (\neg \texttt{Papagei\_rot} \land \texttt{Hyäne\_rot})
+                )
+            ) \land \\
+            (\neg \texttt{Antilope\_rot} \Rightarrow (
+                (\neg \texttt{Papagei\_rot} \land \neg\texttt{Hyäne\_rot}) \lor
+                (\texttt{Papagei\_rot} \land \texttt{Hyäne\_rot})
+                )
+            )
+        \end{align*}
+    \item Elefant sagt: Papagei blau, Schlange rot
+        \begin{align*}
+            (\texttt{Elefant\_rot} \Rightarrow (
+                (\texttt{Papagei\_blau} \land \texttt{Schlange\_rot}) \lor
+                (\neg \texttt{Papagei\_blau} \land \neg \texttt{Schlange\_rot})
+                )
+            ) \land \\
+            (\texttt{Elefant\_blau} \Rightarrow (
+                (\neg \texttt{Papagei\_blau} \land \texttt{Schlange\_rot}) \lor
+                (\texttt{Papagei\_blau} \land \neg \texttt{Schlange\_rot})
+                )
+            )
+        \end{align*}
+        Mit $ \texttt{*\_blau} \Leftrightarrow \neg \texttt{*\_rot} $:
+        \begin{align*}
+            (\texttt{Elefant\_rot} \Rightarrow (
+                (\neg \texttt{Papagei\_rot} \land \texttt{Schlange\_rot}) \lor
+                (\texttt{Papagei\_rot} \land \neg \texttt{Schlange\_rot})
+                )
+            ) \land \\
+            (\neg \texttt{Elefant\_rot} \Rightarrow (
+                (\texttt{Papagei\_rot} \land \texttt{Schlange\_rot}) \lor
+                (\neg \texttt{Papagei\_rot} \land \neg \texttt{Schlange\_rot})
+                )
+            )
+        \end{align*}
+\end{itemize}
+
+% - Resolution
+\section{Resolution}
+\label{sec:resolution}
+
+Können Sie die Fragestellung an das Faultier durch einmalige Anwendung der
+Resolution lösen? $\rightarrow$ Nein, da mit dem Algorithmus immer nur versucht
+werden kann, ein einzelnes Literal oder dessen Negation aus den vorhandenen
+Sätzen abzuleiten.
+
+Zur Anwendung des Resolutionsalgorithmus wird die Wissensbasis zunächst in die
+Konjunktive Normalform gebracht:
+
+\begin{align*}
+    \text{KB} =\, &
+            (\texttt{Antilope\_rot} \Rightarrow (
+                (\texttt{Papagei\_rot} \land \neg \texttt{Hyäne\_rot}) \lor
+                (\neg \texttt{Papagei\_rot} \land \texttt{Hyäne\_rot})
+                )
+            ) \land \\ &
+            (\neg \texttt{Antilope\_rot} \Rightarrow (
+                (\neg \texttt{Papagei\_rot} \land \neg\texttt{Hyäne\_rot}) \lor
+                (\texttt{Papagei\_rot} \land \texttt{Hyäne\_rot})
+                )
+            ) \land \\ &
+            (\texttt{Elefant\_rot} \Rightarrow (
+                (\neg \texttt{Papagei\_rot} \land \texttt{Schlange\_rot}) \lor
+                (\texttt{Papagei\_rot} \land \neg \texttt{Schlange\_rot})
+                )
+            ) \land \\ &
+            (\neg \texttt{Elefant\_rot} \Rightarrow (
+                (\texttt{Papagei\_rot} \land \texttt{Schlange\_rot}) \lor
+                (\neg \texttt{Papagei\_rot} \land \neg \texttt{Schlange\_rot})
+                )
+            ) \\
+        =\, & 
+            (\neg \texttt{Antilope\_rot} \lor (
+                (\texttt{Papagei\_rot} \land \neg \texttt{Hyäne\_rot}) \lor
+                (\neg \texttt{Papagei\_rot} \land \texttt{Hyäne\_rot})
+                )
+            ) \land \\ &
+            (\texttt{Antilope\_rot} \lor (
+                (\neg \texttt{Papagei\_rot} \land \neg\texttt{Hyäne\_rot}) \lor
+                (\texttt{Papagei\_rot} \land \texttt{Hyäne\_rot})
+                )
+            ) \land \\ &
+            (\neg \texttt{Elefant\_rot} \lor (
+                (\neg \texttt{Papagei\_rot} \land \texttt{Schlange\_rot}) \lor
+                (\texttt{Papagei\_rot} \land \neg \texttt{Schlange\_rot})
+                )
+            ) \land \\ &
+            (\texttt{Elefant\_rot} \lor (
+                (\texttt{Papagei\_rot} \land \texttt{Schlange\_rot}) \lor
+                (\neg \texttt{Papagei\_rot} \land \neg \texttt{Schlange\_rot})
+                )
+            ) \\
+        =\, & 
+            (\neg \texttt{Antilope\_rot} \lor ( \\ & \quad
+                ((\texttt{Papagei\_rot} \land \neg \texttt{Hyäne\_rot}) \lor
+                    \neg \texttt{Papagei\_rot}) \land \\ & \quad
+                ((\texttt{Papagei\_rot} \land \neg \texttt{Hyäne\_rot}) \lor
+                    \texttt{Hyäne\_rot}) \\ & \quad
+                )
+            ) \land \\ &
+            (\texttt{Antilope\_rot} \lor ( \\ & \quad
+                ((\neg \texttt{Papagei\_rot} \land \neg\texttt{Hyäne\_rot}) \lor
+                    \texttt{Papagei\_rot}) \land \\ & \quad
+                ((\neg \texttt{Papagei\_rot} \land \neg\texttt{Hyäne\_rot}) \lor
+                    \texttt{Hyäne\_rot}) \\ & \quad
+                )
+            ) \land \\ &
+            (\neg \texttt{Elefant\_rot} \lor ( \\ & \quad
+                ((\neg \texttt{Papagei\_rot} \land \texttt{Schlange\_rot}) \lor
+                    \texttt{Papagei\_rot}) \land \\ & \quad
+                ((\neg \texttt{Papagei\_rot} \land \texttt{Schlange\_rot}) \lor
+                    \neg \texttt{Schlange\_rot}) \\ & \quad
+                )
+            ) \land \\ &
+            (\texttt{Elefant\_rot} \lor ( \\ & \quad
+                ((\texttt{Papagei\_rot} \land \texttt{Schlange\_rot}) \lor
+                    \neg \texttt{Papagei\_rot}) \land \\ & \quad
+                ((\texttt{Papagei\_rot} \land \texttt{Schlange\_rot}) \lor
+                    \neg \texttt{Schlange\_rot}) \\ & \quad
+                )
+            ) \\
+        =\, & 
+            (\neg \texttt{Antilope\_rot} \lor ( \\ & \quad
+                ((\underbrace{\texttt{Papagei\_rot} \lor \neg \texttt{Papagei\_rot}}_{\text{True}}) \land
+                (\neg \texttt{Hyäne\_rot} \lor \neg \texttt{Papagei\_rot})) \land \\ & \quad
+                ((\texttt{Papagei\_rot} \lor \texttt{Hyäne\_rot}) \land
+                (\underbrace{\neg \texttt{Hyäne\_rot} \lor \texttt{Hyäne\_rot}}_{\text{True}})) \land \\ & \quad
+            ) \land \\ &
+            (\texttt{Antilope\_rot} \lor ( \\ & \quad
+                ((\neg \texttt{Papagei\_rot} \lor \texttt{Papagei\_rot}) \land
+                (\neg\texttt{Hyäne\_rot}) \lor \texttt{Papagei\_rot}) \land \\ & \quad
+                ((\neg \texttt{Papagei\_rot} \lor \texttt{Hyäne\_rot}) \land
+                (\neg\texttt{Hyäne\_rot} \lor \texttt{Hyäne\_rot})) \\ & \quad
+            ) \land \\ &
+            (\neg \texttt{Elefant\_rot} \lor ( \\ & \quad
+                ((\neg \texttt{Papagei\_rot} \lor \texttt{Papagei\_rot}) \land
+                (\texttt{Schlange\_rot}) \lor \texttt{Papagei\_rot}) \land \\ & \quad
+                ((\neg \texttt{Papagei\_rot} \lor \neg \texttt{Schlange\_rot}) \land
+                (\texttt{Schlange\_rot} \lor \neg \texttt{Schlange\_rot})) \\ & \quad
+            ) \land \\ &
+            (\texttt{Elefant\_rot} \lor ( \\ & \quad
+                ((\texttt{Papagei\_rot} \lor \neg \texttt{Papagei\_rot}) \land
+                (\texttt{Schlange\_rot} \lor \neg \texttt{Papagei\_rot})) \land \\ & \quad
+                ((\texttt{Papagei\_rot} \lor \neg \texttt{Schlange\_rot}) \land
+                (\texttt{Schlange\_rot} \lor \neg \texttt{Schlange\_rot})) \\ & \quad
+            ) \\
+\end{align*}
+
+\begin{align*}
+        =\, & 
+            (\neg \texttt{Antilope\_rot} \lor ( 
+                (\neg \texttt{Hyäne\_rot} \lor \neg \texttt{Papagei\_rot}) \land
+                (\texttt{Papagei\_rot} \lor \texttt{Hyäne\_rot})
+            )) \land \\ &
+            (\texttt{Antilope\_rot} \lor ( 
+                (\neg\texttt{Hyäne\_rot} \lor \texttt{Papagei\_rot}) \land
+                (\neg \texttt{Papagei\_rot} \lor \texttt{Hyäne\_rot})
+            )) \land \\ &
+            (\neg \texttt{Elefant\_rot} \lor (
+                (\texttt{Schlange\_rot} \lor \texttt{Papagei\_rot}) \land
+                (\neg \texttt{Papagei\_rot} \lor \neg \texttt{Schlange\_rot})
+            )) \land \\ &
+            (\texttt{Elefant\_rot} \lor ( 
+                (\texttt{Schlange\_rot} \lor \neg \texttt{Papagei\_rot}) \land
+                (\texttt{Papagei\_rot} \lor \neg \texttt{Schlange\_rot})
+            )) \\
+        =\, & 
+            (\neg \texttt{Antilope\_rot} \lor \neg \texttt{Hyäne\_rot} \lor \neg \texttt{Papagei\_rot}) \land \tag{A} \\ &
+            (\neg \texttt{Antilope\_rot} \lor \texttt{Papagei\_rot} \lor \texttt{Hyäne\_rot}) \land \tag{B} \\ &
+            (\texttt{Antilope\_rot} \lor \neg\texttt{Hyäne\_rot} \lor \texttt{Papagei\_rot}) \land \tag{C} \\ &
+            (\texttt{Antilope\_rot} \lor \neg \texttt{Papagei\_rot} \lor \texttt{Hyäne\_rot}) \land \tag{D} \\ &
+            (\neg \texttt{Elefant\_rot} \lor \texttt{Schlange\_rot} \lor \texttt{Papagei\_rot}) \land \tag{E} \\ &
+            (\neg \texttt{Elefant\_rot} \lor \neg \texttt{Papagei\_rot} \lor \neg \texttt{Schlange\_rot}) \land \tag{F} \\ &
+            (\texttt{Elefant\_rot} \lor \texttt{Schlange\_rot} \lor \neg \texttt{Papagei\_rot}) \land \tag{G} \\ &
+            (\texttt{Elefant\_rot} \lor \texttt{Papagei\_rot} \lor \neg \texttt{Schlange\_rot}) \tag{H}
+\end{align*}
+
+Resolutionsalgorithmus: Um zu zeigen, dass $ \texttt{Elefant\_rot} $ gilt, nehmen
+wir $ \neg \texttt{Elefant\_rot} $ (I) an. Dann leiten wir damit neue Sätze ab:
+
+\begin{itemize}
+    \item Aus Kombination von I und E folgt: $ \texttt{Schlange\_rot} \lor \texttt{Papagei\_rot} $ (J)
+    \item Aus Kombination von J und G folgt: $ \texttt{Elefant\_rot} \lor \texttt{Schlange\_rot} $ (K)
+    \item Aus Kombination von K und H folgt: $ \texttt{Elefant\_rot} \lor \texttt{Papagei\_rot} $ (L)
+    \item Aus Kombination von L und I folgt: $ \texttt{Papagei\_rot} $ (M)
+    \item Aus Kombination von M und D folgt: $ \texttt{Antilope\_rot} \lor \texttt{Hyäne\_rot} $ (N)
+\end{itemize}
 
 % End of Text
 
