@@ -1,0 +1,26 @@
+\usepackage[dvips]{graphics}
+\usepackage{graphicx}
+\usepackage[ngerman]{babel}
+\usepackage[section]{placeins}
+\usepackage[framed,thmmarks]{ntheorem}
+
+\usepackage[style=authoryear,natbib=true,hyperref=true]{biblatex}
+\addbibresource{bibliog.bib}
+
+\usepackage[automark,headsepline,plainheadsepline]{scrpage2}
+\automark[section]{chapter}
+% Header + Footer Layout
+\pagestyle{scrheadings}
+\clearscrheadfoot{}
+\setheadwidth{textwithmarginpar}
+% \setkomafont{pagenumber}{\bfseries}
+\setkomafont{pageheadfoot}{\normalfont\sffamily}
+\ihead[\leftmark]{\leftmark{}}
+% \chead[]{\rightmark}
+\ohead[]{\pagemark{}}
+\setheadsepline[head]{0.4pt}
+
+\setlength{\parindent}{0cm}
+
+\usepackage{makeidx}
+\makeindex{}

@@ -1,0 +1,269 @@
+\documentclass[a4paper,draft=false,oneside,12pt,ngerman]{scrreprt}
+\input{template}
+\input{preamble}
+\input{hypersetup}
+
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows,positioning}
+\tikzset{%
+  block/.style    = {draw, thick, rectangle, minimum height = 3em, minimum width = 3em}
+}
+
+\title{Klausur Planen und Entscheiden SS~2009 Lösung}
+\author{Jan~Strohbeck \and Michael~Kaps \and Tobias~Häußer \and Dominik~Bergen \and Kowsikan~Sathiyamoorthy}
+\date{\today{}, Aalen}
+
+% Uncomment to speed up compiling process
+% \includeonly{%
+% % Add include files here
+% }
+
+\begin{document}
+
+\pagestyle{empty}
+\renewcommand*{\chapterpagestyle}{scrheadings}
+\include{titlepage}
+
+\cleardoublepage{}
+\renewcommand*{\chapterpagestyle}{scrheadings}
+\pagestyle{scrheadings}
+\pagenumbering{arabic}
+
+% Text here
+
+% Aufgabe
+\chapter{Aufgabe}
+\label{chp:aufgabe_1}
+
+% - Erreicht der Agent immer sein Ziel?
+\section{Erreicht der Agent immer sein Ziel?}
+\label{sec:erreicht_der_agent_immer_sein_ziel?}
+
+Nein, da er so unter Umständen in eine Sackgasse gelangen könnte und nicht mehr
+herausfinden würde (s.\ untenstehende Skizze).
+
+\begin{center}
+\vspace{0.4cm}
+\begin{tikzpicture}[auto, thick, node distance=4cm, >=triangle 45]
+\draw
+    node [block] (start) {Start}
+	node [block, right of=start] (ca) {Stadt A}
+	node [block, right of=ca] (target) {Ziel}
+	node [block, below of=start] (cb) {Stadt B}
+	node [block, below of=target] (cc) {Stadt C};
+	\draw[->](start) -- node {} (ca);
+	\draw[->](start) -- node {} (cb);
+	\draw[->](cb) -- node {} (cc);
+	\draw[->](cc) -- node {} (target);
+\end{tikzpicture}
+\end{center}
+
+So würde der Agent immer zwischen den Städten \enquote{Start} und \enquote{Stadt
+A} pendeln und nie sein Ziel erreichen.
+
+% - Ordnen Sie dem Agenten einen Agententyp zu
+\section{Ordnen Sie dem Agenten einen Agententyp zu}
+\label{sec:ordnen_sie_dem_agenten_einen_agententyp_zu}
+
+$\rightarrow$ Reflexagent
+
+% - Arbeitsumgebung
+\section{Arbeitsumgebung}
+\label{sec:arbeitsumgebung}
+
+\begin{description}
+    \item[Performance] Der Agent muss auf dem kürzesten Weg das Ziel
+        erreichen\\
+        $\rightarrow$ z.B.\ zurückgelegte Strecke wird negativ bewertet,
+        höchster Wert (kleinste Strecke) ist der höchste Wert
+    \item[Environment] Städte, Straßen zwischen Städten
+    \item[Actuators] Möglichkeit, sich in eine Stadt zu bewegen, die mit der
+        aktuellen Stadt über eine Straße verbunden ist
+    \item[Sensors]
+        \begin{itemize}
+            \item spezieller Kompass, der immer auf das Ziel zeigt
+            \item erkennt von der aktuellen Stadt ausgehende Straßen
+        \end{itemize}
+\end{description}
+
+
+% - Eigenschaften der Arbeitsumgebung
+\section{Eigenschaften der Arbeitsumgebung}
+\label{sec:eigenschaften_der_arbeitsumgebung}
+
+\begin{description}
+    \item[teilweise beobachtbar]
+        Es ist nicht sofort bekannt, welche Städte und Straßen existieren (nur
+        die Start-Stadt und davon ausgehende Straßen).
+    \item[deterministisch]
+        Kein Zufall, Umgebung ändert sich nicht stategisch bzw.\ gar nicht
+    \item[eqisodisch]
+        Für den Agenten hängen seine Entscheidungen nicht von den vorherigen
+        Entscheidungen ab.
+    \item[statisch]
+        Es ändern sich z.B.\ keine Verbindungen zwischen Städten zur Laufzeit,
+        alles ist statisch.
+    \item[diskret]
+        Der Agent kann sich nur in diskreten Zuständen befinden (in Städten),
+        nicht etwa zwischen Städten. Die Zeitintervalle zwischen Aktionen sind
+        auch diskret.
+    \item[Einzelagent]
+        Es existieren keine weiteren Agenten.
+\end{description}
+
+% - Optimale Landkarte
+\section{Optimale Landkarte}
+\label{sec:optimale_landkarte}
+
+\begin{center}
+\vspace{0.4cm}
+\begin{tikzpicture}[auto, thick, node distance=4cm, >=triangle 45]
+\draw
+    node [block] (start) {Start}
+	node [block, right of=start] (ca) {Stadt A}
+	node [block, right of=ca] (target) {Ziel};
+	\draw[->](start) -- node {} (ca);
+	\draw[->](ca) -- node {} (target);
+\end{tikzpicture}
+\end{center}
+
+Agent bewegt sich über Stadt A direkt zum Ziel. Dies ist die optimale Lösung.
+
+% - Nicht optimale Landkarte
+\section{Nicht optimale Landkarte}
+\label{sec:nicht_optimale_landkarte}
+
+\begin{center}
+\vspace{0.4cm}
+\begin{tikzpicture}[auto, thick, node distance=4cm, >=triangle 45]
+\draw
+    node [block] (start) {Start}
+	node [block, below of=start] (ca) {Stadt A}
+	node [block, below left=of ca] (cb) {Stadt B}
+	node [block, below right=of start] (cc) {Stadt C}
+	node [block, below right=of cb] (target) {Ziel}
+    ;
+	\draw[->](start) -- node {1} (ca);
+    \draw[->](ca) -- node {$\sqrt{2}$} (cb);
+    \draw[->](cb) -- node {$\sqrt{2}$} (target);
+    \draw[->](start) -- node {$\sqrt{2}$} (cc);
+    \draw[->](cc) -- node {$\sqrt{3}$} (target);
+\end{tikzpicture}
+\end{center}
+
+Weg des Agenten (Start $\rightarrow$ Stadt A $\rightarrow$ Stadt B $\rightarrow$ Ziel):
+\[ w_1 = 1 + 2 \cdot \sqrt{2} \approx 3.828427125 \]
+
+Optimaler Weg (Start $\rightarrow$ Stadt C):
+\[ w_o = \sqrt{2} + \sqrt{3} \approx 3.14626437 \]
+
+Die Karte aus Kap.~\ref{sec:vs._zufalls-agent} passt hier auch, da der Agent nie
+ins Ziel kommt, was ebenfalls nicht optimal ist.
+
+% - vs. Zufalls-Agent
+\section{vs.\ Zufalls-Agent}
+\label{sec:vs._zufalls-agent}
+
+\begin{center}
+\vspace{0.4cm}
+\begin{tikzpicture}[auto, thick, node distance=4cm, >=triangle 45]
+\draw
+    node [block] (start) {Start}
+	node [block, right of=start] (ca) {Stadt A}
+	node [block, right of=ca] (target) {Ziel}
+	node [block, below of=ca] (cb) {Stadt B};
+	\draw[->](start) -- node {} (ca);
+	\draw[->](start) -- node {} (cb);
+	\draw[->](cb) -- node {} (target);
+\end{tikzpicture}
+\end{center}
+
+Der Agent würde hier nie zum Ziel kommen (s.
+Kap.~\ref{sec:erreicht_der_agent_immer_sein_ziel?}), ein zufällig agierender Agent
+hätte hier zumindest eine Wahrscheinlichkeit ungleich Null, irgendwann zum Ziel
+zu kommen. Dies ist jedoch nicht garantiert, da auch hier bei ungünstigen
+Entscheidungen der Agent in eine Endlosschleife gelangen könnte, ohne je ins
+Ziel zu kommen.
+
+% Aufgabe
+\chapter{Aufgabe}
+\label{chp:aufgabe}
+
+% - Zulässigkeit
+\section{Zulässigkeit}
+\label{sec:zulaessigkeit}
+
+\begin{description}
+    \item[$h_1(n)$: Luftlinienentfernung des zu $n$ gehörenden Knotens zum Startknoten] 
+        Zulässig, da von jedem Knoten aus für einen Rundweg noch mindestens die
+        Distanz zum Startknoten zurückgelegt werden muss. Die
+        Luftlinienentfernung zum Startknoten ist dabei immer kleiner oder gleich
+        der tatsächlich benötigten Distanz zum Startknoten (evtl.\ über mehrere
+        Zwischenknoten).
+    \item[$h_2(n)$: kürzester Pfad des zu n gehörenden Knotens zum Startknoten] 
+        Zulässig, da von jedem Knoten aus für einen Rundweg noch mindestens die
+        Distanz zum Startknoten zurückgelegt werden muss. Der kürzeste Pfad von
+        diesem Knoten entspricht genau dieser Distanz.
+    \item[$h_3(n)$: Summe der Entfernungen der im Zustand $n$ noch nicht
+        besuchten Knoten] \textbf{zu dem Nachbarknoten mit der geringsten
+        Entfernung}
+
+        Zulässig, da die Strecke zu jedem noch unbesuchten Knoten noch
+        zurückgelegt werden muss und diese im günstigsten Fall nur jene zum
+        Nachbarknoten ist.
+    \item[$h_4(n)$: Summe der Luftlinienentfernungen aller im Zustand $n$ noch
+        nicht besuchten] \textbf{Knoten zum Startknoten}
+
+        Nicht zulässig, Gegenbeispiel (noch keine Stadt besucht):
+
+        \begin{center}
+        \vspace{0.4cm}
+        \begin{tikzpicture}[auto, thick, node distance=4cm, >=triangle 45]
+        \draw
+            node at (4, 0)[block] (start) {Start}
+            node at (4, -8)[block] (cb) {Stadt B}
+            node [block, left of=cb] (ca) {Stadt A}
+            node [block, right of=cb] (cc) {Stadt C}
+            node at (4, -10) [block] (cd) {Stadt D} ;
+            \draw[-](start) -- node {$\sqrt{20}$} (ca);
+            \draw[-](ca) -- node {2} (cb);
+            \draw[-](cb) -- node {2} (cc);
+            \draw[-](cb) -- node {1} (cd);
+            \draw[-](start) -- node {$\sqrt{20}$} (cc);
+        \end{tikzpicture}
+        \end{center}
+
+        \[ h_4(\text{Stadt A}) = 4 + 5 + \sqrt{20} \]
+        \[ k(\text{Stadt A}) = 2 + 1 + 1 + 2 + \sqrt{20} \]
+\end{description} 
+
+% - Dominanz
+\section{Dominanz}
+\label{sec:dominanz}
+
+\begin{itemize}
+    \item $ h_1(n) \leq h_2(n) $ weil Luftlinienentfernung zu einem Knoten nie größer als
+        Pfad zu einem Knoten (Dreiecksungleichung)
+
+    \item $ h_3(n) $ kann nicht eingeordnet werden:
+        \begin{itemize}
+            \item $ h_3(n) < h_1(n) $ wenn n und die anderen nicht besuchten Knoten dicht
+                zusammen liegen, aber weit vom Startknoten entfernt sind.
+            \item $ h_3(n) > h_2(n) $ wenn n nahe am Startknoten, die anderen
+                nicht besuchten Knoten aber weit von einander entfernt sind.
+        \end{itemize}
+
+    \item $ h_4(n) $ ist nicht zulässig $\rightarrow$ Voraussetzung für Dominanz
+        nicht erfüllt.
+\end{itemize}
+
+
+
+% End of Text
+
+\cleardoublepage{}
+\renewcommand*{\chapterpagestyle}{scrheadings}
+\renewcommand*{\indexpagestyle}{scrheadings}
+\pagenumbering{Roman}
+
+\end{document}
