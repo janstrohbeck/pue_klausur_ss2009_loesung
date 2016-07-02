@@ -290,8 +290,8 @@ Ziel zu kommen.
 \label{sec:aktuelle_wertebereiche_der_variablen}
 
 \begin{itemize}
-    \item $ \text{Feld}_{0,0} \in \left\{ 2, 3 \right\} $
-    \item $ \text{Feld}_{0,1} \in \left\{ 2, 3 \right\} $
+    \item $ \text{Feld}_{0,0} \in \left\{ 2, 4 \right\} $
+    \item $ \text{Feld}_{0,1} \in \left\{ 2, 4 \right\} $
     \item $ \text{Feld}_{0,2} \in \left\{ 1, 4 \right\} $
     \item $ \text{Feld}_{0,3} \in \left\{ 3 \right\} $ (bereits zugewiesen)
     \item $ \text{Feld}_{1,0} \in \left\{ 2, 3, 4 \right\} $
@@ -453,7 +453,7 @@ werden kann, ein einzelnes Literal oder dessen Negation aus den vorhandenen
 Sätzen abzuleiten.
 
 Zur Anwendung des Resolutionsalgorithmus wird die Wissensbasis zunächst in die
-Konjunktive Normalform gebracht:
+Konjunktive Normalform gebracht (hier nicht explizit gefordert):
 
 \begin{align*}
     \text{KB} =\, &
@@ -584,7 +584,8 @@ Konjunktive Normalform gebracht:
 \end{align*}
 
 Resolutionsalgorithmus: Um zu zeigen, dass $ \texttt{Elefant\_rot} $ gilt, nehmen
-wir $ \neg \texttt{Elefant\_rot} $ (I) an. Dann leiten wir damit neue Sätze ab:
+wir $ \neg \texttt{Elefant\_rot} $ (I) an. Dann leiten wir damit neue Sätze ab
+(hier nicht explizit gefordert, nur zur Demonstration des Prinzips):
 
 \begin{itemize}
     \item Aus Kombination von I und E folgt: $ \texttt{Schlange\_rot} \lor \texttt{Papagei\_rot} $ (J)
@@ -594,13 +595,20 @@ wir $ \neg \texttt{Elefant\_rot} $ (I) an. Dann leiten wir damit neue Sätze ab:
     \item Aus Kombination von M und D folgt: $ \texttt{Antilope\_rot} \lor \texttt{Hyäne\_rot} $ (N)
 \end{itemize}
 
-Wie geht's weiter???
+Dies führt hier bei allen absehbaren Kombinationsmöglichkeiten nicht zu einem
+Widerspruch, d.h.\ die Aussage $\ texttt{Elefant\_rot} $ ist nicht aus der
+Wissensbasis ableitbar. Wäre dies der Fall, müsste es bei wiederholter Anwendung
+der Resolution zu einer leeren Klausel kommen (Wahrheitswert False). Dies würde
+die Wissensbasis insgesamt False machen (aufgrund der Konjunktiven Normalform),
+was einen Widerspruch darstellt, da die Wissensbasis wahr sein muss. Dann wäre
+der gewünschte Satz bewiesen.
 
 % - Problemart
 \section{Problemart}
 \label{sec:problemart}
 
-Logikpuzzle???
+$\rightarrow$ Constraint Problem bzw.\ Erfüllbarkeitsproblem der Aussagenlogik
+(da jede Variable nur 2 Werte besitzen kann).
 
 % Aufgabe
 \chapter{Aufgabe}
